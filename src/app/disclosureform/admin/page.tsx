@@ -13,7 +13,7 @@ function AdminPage() {
     const encodedTo = encodeURIComponent(toValue.trim());
     const encodedDeadline = encodeURIComponent(deadline?.toISOString() || "");
 
-    const url = `${window.location.origin}/disclosureForm?to=${encodedTo}&deadline=${encodedDeadline}`;
+    const url = `${window.location.origin}/disclosureform?to=${encodedTo}&deadline=${encodedDeadline}`;
     setGeneratedLink(url);
   };
 
