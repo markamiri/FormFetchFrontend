@@ -42,24 +42,34 @@ function Page() {
     setUploadedFiles((prev) => [...prev, ...validFiles]);
   };
 
-const handleEmailSubmit = async (name) => {
-  try {
-    const res = await fetch("https://formfetchbackend.onrender.com/api/send-email", {
-      method: "POST",
-      body: formData, // assuming you're using FormData with appended files
+  const handleEmailSubmit = async (name: string) => {
+    const formData = new FormData();
+    formData.append("name", name);
+    uploadedFiles.forEach((file) => {
+      formData.append("files", file); // append each file
     });
-
-    if (res.ok) {
-      setStep(9); // 🎉 success step
-    } else {
-      console.error("❌ Failed to submit");
+  
+    try {
+      const res = await fetch("https://formfetchbackend.onrender.com/api/send-email", {
+        method: "POST",
+        body: formData,
+      });
+  
+      const result = await res.json();
+      console.log("✅ Email Response:", result);
+  
+      if (res.ok) {
+        setStep(9); // 🎉 success step
+      } else {
+        console.error("❌ Failed to submit");
+        setStep(10); // 🔴 error step
+      }
+    } catch (err) {
+      console.error("❌ An error occurred while submitting:", err);
       setStep(10); // 🔴 error step
     }
-  } catch (err) {
-    console.error("❌ An error occurred while submitting:", err);
-    setStep(10); // 🔴 error step
-  }
-};
+  };
+
 
 
   const handleSubmit = async () => {
