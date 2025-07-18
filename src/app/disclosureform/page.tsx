@@ -739,14 +739,9 @@ function Page() {
             Your disclosure form and supporting documents have been successfully sent to the admin.
           </p>
           <p className="text-md text-gray-600 mb-8">
-            Thank you for using <span className="font-semibold text-indigo-600">Form Fetch</span> — where PDFs become painless.
+            Thank you for using <span className="font-semibold text-indigo-600">Form Fetch</span> — PDFs Made Easy as A-B-C.
           </p>
-          <a
-            href="/"
-            className="inline-block mt-4 bg-indigo-600 text-white px-6 py-3 rounded hover:bg-indigo-700 transition"
-          >
-            Return Home
-          </a>
+         
         </div>
       )}
 
@@ -758,7 +753,7 @@ function Page() {
             Something went wrong while trying to submit your form.
           </p>
           <p className="text-md text-gray-600">
-            Please try again later or contact support at <span className="font-semibold">support@formfetch.ca</span>.
+            Please try again later or contact support at <span className="font-semibold">yimminglu@gmail.com</span>.
           </p>
           <button
             onClick={() => setStep(8)}
