@@ -756,11 +756,12 @@ function Page() {
             Please try again later or contact support at <span className="font-semibold">yimminglu@gmail.com</span>.
           </p>
           <button
-            onClick={() => setStep(8)}
+            onClick={() => window.location.reload()}
             className="mt-6 bg-red-600 text-white px-6 py-2 rounded hover:bg-red-700 transition"
           >
             Retry Submission
           </button>
+
         </div>
       )}  
     </div>
