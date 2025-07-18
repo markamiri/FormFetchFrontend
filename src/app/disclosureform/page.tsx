@@ -50,7 +50,7 @@ function Page() {
     });
 
     try {
-      const res = await fetch("http://localhost:5000/api/send-email", {
+      const res = await fetch("http://formfetchbackend.onrender.com/api/send-email", {
         method: "POST",
         body: formData, // 🔁 send files as FormData
       });
@@ -80,7 +80,7 @@ function Page() {
     console.log("Final Form Data (Ready to Submit):", completeFormData);
     try {
       const res = await fetch(
-        "http://localhost:5000/api/submit-disclosure-form",
+        "http://formfetchbackend.onrender.com/api/submit-disclosure-form",
         {
           method: "POST",
           headers: {
@@ -658,7 +658,7 @@ function Page() {
           {/* PDF Placeholder */}
           <div className="border border-gray-300 rounded shadow p-4 bg-gray-50 mb-8">
             <iframe
-              src="http://localhost:5000/api/final-disclosure-pdf"
+              src="http://formfetchbackend.onrender.com/api/final-disclosure-pdf"
               title="Preview PDF"
               width="100%"
               height="600px"
