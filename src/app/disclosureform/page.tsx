@@ -42,26 +42,25 @@ function Page() {
     setUploadedFiles((prev) => [...prev, ...validFiles]);
   };
 
-  const handleEmailSubmit = async (name: string) => {
-    const formData = new FormData();
-    formData.append("name", name);
-    uploadedFiles.forEach((file) => {
-      formData.append("files", file); // all files under "files"
+const handleEmailSubmit = async (name) => {
+  try {
+    const res = await fetch("https://formfetchbackend.onrender.com/api/send-email", {
+      method: "POST",
+      body: formData, // assuming you're using FormData with appended files
     });
 
-    try {
-      const res = await fetch("https://formfetchbackend.onrender.com/api/send-email", {
-        method: "POST",
-        body: formData, // 🔁 send files as FormData
-      });
-
-      const result = await res.json();
-      console.log("✅ Email Response:", result);
-      alert("Email sent.");
-    } catch (err) {
-      console.error("❌ Error calling email endpoint:", err);
+    if (res.ok) {
+      setStep(9); // 🎉 success step
+    } else {
+      console.error("❌ Failed to submit");
+      setStep(10); // 🔴 error step
     }
-  };
+  } catch (err) {
+    console.error("❌ An error occurred while submitting:", err);
+    setStep(10); // 🔴 error step
+  }
+};
+
 
   const handleSubmit = async () => {
     const completeFormData = {
@@ -719,6 +718,46 @@ function Page() {
           </div>
         </div>
       )}
+
+      {/* STEP 9 */}
+      {step === 9 && (
+        <div className="bg-white shadow-md rounded p-6 mt-10 max-w-2xl mx-auto text-center text-black">
+          <h2 className="text-3xl font-bold text-green-700 mb-4">
+            🎉 Submission Complete!
+          </h2>
+          <p className="text-lg text-gray-700 mb-4">
+            Your disclosure form and supporting documents have been successfully sent to the admin.
+          </p>
+          <p className="text-md text-gray-600 mb-8">
+            Thank you for using <span className="font-semibold text-indigo-600">Form Fetch</span> — where PDFs become painless.
+          </p>
+          <a
+            href="/"
+            className="inline-block mt-4 bg-indigo-600 text-white px-6 py-3 rounded hover:bg-indigo-700 transition"
+          >
+            Return Home
+          </a>
+        </div>
+      )}
+
+      {/* STEP 10 */}
+      {step === 10 && (
+        <div className="bg-white shadow-md rounded p-6 mt-10 max-w-2xl mx-auto text-center text-red-700">
+          <h2 className="text-3xl font-bold mb-4">❌ Submission Failed</h2>
+          <p className="text-lg text-gray-800 mb-4">
+            Something went wrong while trying to submit your form.
+          </p>
+          <p className="text-md text-gray-600">
+            Please try again later or contact support at <span className="font-semibold">support@formfetch.ca</span>.
+          </p>
+          <button
+            onClick={() => setStep(8)}
+            className="mt-6 bg-red-600 text-white px-6 py-2 rounded hover:bg-red-700 transition"
+          >
+            Retry Submission
+          </button>
+        </div>
+      )}  
     </div>
   );
 }
