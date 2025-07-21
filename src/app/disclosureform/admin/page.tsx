@@ -9,12 +9,26 @@ function AdminPage() {
 
   const [generatedLink, setGeneratedLink] = useState("");
 
-  const generateLink = () => {
-    const encodedTo = encodeURIComponent(toValue.trim());
-    const encodedDeadline = encodeURIComponent(deadline?.toISOString() || "");
+  const generateLink = async () => {
+    const response = await fetch(
+      "https://formfetchbackend.onrender.com/api/generateLink",
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          to: toValue.trim(),
+          deadline: deadline?.toISOString() || "",
+        }),
+      }
+    );
 
-    const url = `${window.location.origin}/disclosureform?to=${encodedTo}&deadline=${encodedDeadline}`;
-    setGeneratedLink(url);
+    const data = await response.json();
+    if (data.id) {
+      const url = `${window.location.origin}/disclosureform?id=${data.id}`;
+      setGeneratedLink(url);
+    } else {
+      alert("Failed to generate link");
+    }
   };
 
   return (
