@@ -109,6 +109,10 @@ function Page() {
 
   return (
     <div className="min-h-screen bg-gray-100 p-6 font-sans">
+      <header className="bg-indigo-700 text-white px-6 py-4 rounded">
+        <h1 className="text-2xl font-bold">Form Fetch</h1>
+      </header>
+
       {/* Pull values from URL on load */}
       <Suspense fallback={null}>
         <DisclosureFormSearchParams
@@ -118,10 +122,6 @@ function Page() {
           }}
         />
       </Suspense>
-
-      <header className="bg-indigo-700 text-white px-6 py-4 rounded">
-        <h1 className="text-2xl font-bold">Form Fetch</h1>
-      </header>
 
       {/* STEP 1 */}
       {step === 1 && (
@@ -273,7 +273,7 @@ function Page() {
             <div className="p-4 bg-white rounded shadow-md">
               <div className="flex items-center justify-between mb-2">
                 <p className="font-medium text-gray-800">
-                  1. I am a registered owner of a unit in the Corporation.
+                    1. a) I am a registered owner of a unit in the Corporation.
                 </p>
                 <div className="flex items-center gap-4">
                   <label className="flex items-center gap-2">
@@ -301,10 +301,10 @@ function Page() {
 
               {/* Sub-question (only if owner is true) */}
               {isOwner === true && (
-                <div className="mt-3 pl-4 border-l-4 border-indigo-300">
+                <div className="mt-3 pl-2.5 border-l-4 border-indigo-300">
                   <div className="flex justify-between items-start gap-4">
-                    <p className="text-sm text-gray-700 max-w-[70%]">
-                      The contributions to the common expenses payable for my
+                    <p className="text-md text-gray-700 max-w-[70%] font-medium">
+                      b) The contributions to the common expenses payable for my
                       unit(s) are in arrears for 60 days or more.
                     </p>
                     <div className="flex items-center gap-4 whitespace-nowrap">
@@ -648,7 +648,7 @@ function Page() {
               }}
               className="bg-indigo-700 text-white px-4 py-2 rounded hover:bg-indigo-800 transition"
             >
-              Continue
+              Sign Form
             </button>
           </div>
         </div>
@@ -667,7 +667,7 @@ function Page() {
           {/* PDF Placeholder */}
           <div className="border border-gray-300 rounded shadow p-4 bg-gray-50 mb-8">
             <iframe
-              src="https://formfetchbackend.onrender.com/api/final-disclosure-pdf"
+              src="https://formfetchbackend.onrender.com/api/final-disclosure-pdf#navpanes=0&zoom=100"
               title="Preview PDF"
               width="100%"
               height="600px"
@@ -718,7 +718,13 @@ function Page() {
             </ul>
           </div>
 
-          <div className="flex justify-center">
+          <div className="flex justify-center gap-4">
+            <button
+              onClick={() => setStep(7)}
+              className="bg-gray-300 text-black px-6 py-3 rounded font-bold hover:bg-gray-400 transition"
+            >
+              Go Back
+            </button>
             <button
               onClick={() => handleEmailSubmit(name)}
               className="bg-indigo-700 text-white px-6 py-3 rounded font-bold hover:bg-indigo-800 transition"
